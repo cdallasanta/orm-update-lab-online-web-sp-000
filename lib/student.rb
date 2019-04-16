@@ -49,7 +49,9 @@ class Student
       WHERE name = ?
     SQL
 
-    DB[:conn].execute(sql, name).first
+    DB[:conn].execute(sql, name).map do |row|
+      Student.new_from_db(row)
+    end
   end
 
   def self.create_table
