@@ -37,6 +37,7 @@ class Student
     SQL
 
     DB[:conn].execute(sql, self.name, self.grade, self.id)
+    self
   end
 
   def self.find_by_name(name)
@@ -48,7 +49,7 @@ class Student
 
     DB[:conn].execute(sql, name).map do |row|
       Student.new_from_db(row)
-    end
+    end.first
   end
 
   def self.new_from_db(row)
